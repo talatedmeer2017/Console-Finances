@@ -86,3 +86,49 @@ var finances = [
 ['Jan-2017', 138230],
 ['Feb-2017', 671099]
 ];
+
+var months = finances.length;
+var total = 0;
+var change = 0;
+var average;
+var analysis
+var net = 0;
+var netArray = [];
+var netChangeSum = 0;
+var least = ['', 9999999999999];
+var greatest = ['', 0];
+
+for (var i = 0; i < finances.length; i++) {
+  for (var j = 0; j < finances[i].length; j++) {
+    if(typeof finances[i][j] !== 'string') {
+      total += finances[i][j]
+      change = finances[i][j] - net;
+      net = finances[i][j];
+      netArray.push(change);
+
+      if (change > greatest[1]) {
+        greatest = [finances[i][0], finances[i][1]];
+      }
+
+      if (change < least[1]) {
+        least = [finances[i][0], finances[i][1]];
+      }
+    }
+  }
+}
+
+for (var i = 0; i < netArray.length; i++) {
+  netChangeSum += netArray[i];
+}
+
+average = Math.round((netChangeSum / 86) * 100) / 100;
+
+analysis = 'Financial Analysis ' + '\n' + 
+'----------------' + '\n' + 
+'Total Months: ' + months + '\n' + 
+'Total: $' + total + '\n' + 
+'Average Change: ' + average + '\n' + 
+'Greatest Increase: ' + greatest[0] + ': $' + greatest[1] + '\n' + 
+'Greatest Decrease: ' + least[0] + ': $' + least[1];
+
+console.log(analysis);
